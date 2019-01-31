@@ -2,6 +2,7 @@ package com.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.beans.Player;
+import com.dao.ApplicationDao;
 
 /**
  * Servlet implementation class PlayerController
@@ -30,7 +34,11 @@ public class PlayerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		String pathInfo = request.getPathInfo(); // /{value}/test
+		String[] pathParts = pathInfo.split("/");
+		String player = pathParts[1];
+		ApplicationDao dao= new ApplicationDao();
+		List<Player> players= dao.searchPlayer(player);
 	}
 
 	/**
