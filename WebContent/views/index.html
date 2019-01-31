@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<title>Player Rating</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="jumbotron">
+				<header>
+					<div class="col-sm-12">
+						<h1>Search for your Player</h1>
+					</div>
+				</header>
+				<div ng-app="playerApp" ng-controller="playerCtrl">
+					<div class="panel panel-default">
+						<div class="panel-heading">Enter Your Player Name</div>
+						<div class="panel-body">
+							<div class="col-sm-12">
+								<input type="text" id="player-name" ng-model="playerName" onchange="checkPlayer()">
+							</div>
+							<div class="col-sm-12">
+								<h1>{{ playerName }}</h1>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer>
+			</footer>
+		</div>
+		<script>
+		let app = angular.module('playerApp', []);
+		app.controller('playerCtrl', function($scope) {
+			  $scope.playerName = "Lionel";
+			});
+		</script>
+	</body>
