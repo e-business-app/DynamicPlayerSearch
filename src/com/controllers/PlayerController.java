@@ -39,6 +39,9 @@ public class PlayerController extends HttpServlet {
 		String player = pathParts[1];
 		ApplicationDao dao= new ApplicationDao();
 		List<Player> players= dao.searchPlayer(player);
+		PrintWriter writer=response.getWriter();
+		String test=Integer.toString(players.get(0).getId());
+		writer.append(test);
 	}
 
 	/**

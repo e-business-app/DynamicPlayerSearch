@@ -10,7 +10,7 @@ public class DBConnection {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);   
 			String url = "jdbc:mysql://localhost:3306/Player";
-			Connection c = DriverManager.getConnection(url,"blogger","blogger");
+			Connection c = DriverManager.getConnection(url,"hoshang","test");
 			return c;
 		}
 		catch(ClassNotFoundException e){

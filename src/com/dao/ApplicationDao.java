@@ -17,7 +17,7 @@ public class ApplicationDao {
 		
 		try {
 			Connection connection = DBConnection.getConnectionToDatabase();
-			String sql = "select * from products where product_name like '%"+searchPlayer+"%'";
+			String sql = "select * from playerinfo where fullname like '%"+searchPlayer+"%'";
 			Statement statement = connection.createStatement();
 			ResultSet set = statement.executeQuery(sql);
 			while(set.next()) {
