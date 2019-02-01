@@ -4,28 +4,39 @@
 	<title>Player Rating</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	</head>
 	<body>
 		<div class="container">
 			<div class="jumbotron">
 				<header>
 					<div class="col-sm-12">
-						<h1>Search for your Player</h1>
+						<h1>Database search:</h1>
 					</div>
 				</header>
 				<div ng-app="playerApp" ng-controller="playerCtrl">
 					<div class="panel panel-default">
-						<div class="panel-heading">Enter Your Player Name</div>
+						<div class="col-sm-12">
+						Enter Your Player Name
+						</div>
 						<div class="panel-body">
 							<div class="col-sm-12">
-								<input type="text" id="player-name" ng-model="playerName" onchange="checkPlayer()">
+								<input type="text" id="player-name" ng-model="playerName" ng-change='checkPlayer()'>
 							</div>
 							<div class="col-sm-12">
 								<h1>{{ playerName }}</h1>
+							<table id="example" class="table table-striped table-bordered mt-5" cellspacing="20" style="width:100%">
+								<thead>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
 							</div>
 						</div>
 					</div>
@@ -35,9 +46,41 @@
 			</footer>
 		</div>
 		<script>
+		/**
+		 * Create a separate file for this JavaScript. Angular Service works well!
+		 */
 		let app = angular.module('playerApp', []);
-		app.controller('playerCtrl', function($scope) {
-			  $scope.playerName = "Lionel";
+		app.controller('playerCtrl', function($scope, $http) {
+			 // $scope.playerName = "Lionel";
+			var cols =[ { data: "id", title : "id" },
+            { data: "fullName" , title: "Player Name"},
+            { data: "age", title: "age" },
+            { data: "country", title: "country" },
+            ];
+			 
+			//$("#table").DataTable({"columns":cols});
+			var table = $('#example').DataTable({"columns":cols});
+			$scope.checkPlayer = function(){
+				//$('#example').dataTable().destroy();
+				let playerName=$scope.playerName;
+				$http.get('http://localhost:8088/EBusinessGroupAssignment1/Player/'+playerName)
+				  .then(function(response) {
+				    $scope.playerInfo = response.data;
+				    table.clear().draw();
+				    table.rows.add(response.data);
+				    table.columns.adjust().draw(); 
+				    /*({
+				        "aaData": $scope.playerInfo,
+				        "aoColumns": [
+				            { "mData": "id" },
+				            { "mData": "fullName" },
+				            { "mData": "age" },
+				            { "mData": "country" }
+				        ]
+				    });*/
+				  });
+				
+			}
 			});
 		</script>
 	</body>
