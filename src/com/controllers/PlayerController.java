@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
  * Servlet implementation class PlayerController
  */
 // @WebServlet("/Player")
-public class PlayerController extends HttpServlet {
+public class PlayerController extends AppController {
 	private static final long serialVersionUID = 1L;
        
     /**
