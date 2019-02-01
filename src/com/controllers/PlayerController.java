@@ -1,5 +1,7 @@
 package com.controllers;
 
+import java.lang.NullPointerException;
+import java.lang.ArrayIndexOutOfBoundsException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,18 +43,26 @@ public class PlayerController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String pathInfo = request.getPathInfo(); // /{value}/test
-		String[] pathParts = pathInfo.split("/");
-		String player = pathParts[1];
+		response.setContentType("application/json");
+		PrintWriter writer=response.getWriter();
+		String player="";
+		try {
+			String[] pathParts = pathInfo.split("/");
+			player = pathParts[1];
+		}catch(ArrayIndexOutOfBoundsException e) {
+			System.out.print("Complete Search");
+		}catch(NullPointerException e) {
+			writer.append("{'err':'Please Enter a Valid Search Term'}");
+			return;
+		}
 		ApplicationDao dao= new ApplicationDao();
 		List<Player> players= dao.searchPlayer(player);
-		PrintWriter writer=response.getWriter();
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		ObjectMapper mapper= new ObjectMapper();
 	      try
 	      {
 	         mapper.writeValue(out, players);
 	         String JSONString=new String(out.toByteArray());
-	         response.setContentType("application/json");
 	         writer.append(JSONString);
 	         return;
 	      } catch (JsonGenerationException e)
