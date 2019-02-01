@@ -1,5 +1,6 @@
 package com.controllers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -13,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.beans.Player;
 import com.dao.ApplicationDao;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 
 /**
  * Servlet implementation class PlayerController
@@ -40,8 +46,26 @@ public class PlayerController extends HttpServlet {
 		ApplicationDao dao= new ApplicationDao();
 		List<Player> players= dao.searchPlayer(player);
 		PrintWriter writer=response.getWriter();
-		String test=Integer.toString(players.get(0).getId());
-		writer.append(test);
+		final ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ObjectMapper mapper= new ObjectMapper();
+	      try
+	      {
+	         mapper.writeValue(out, players);
+	         String JSONString=new String(out.toByteArray());
+	         response.setContentType("application/json");
+	         writer.append(JSONString);
+	         return;
+	      } catch (JsonGenerationException e)
+	      {
+	         e.printStackTrace();
+	      } catch (JsonMappingException e)
+	      {
+	         e.printStackTrace();
+	      } catch (IOException e)
+	      {
+	         e.printStackTrace();
+	      }
+	      writer.append("Error");
 	}
 
 	/**

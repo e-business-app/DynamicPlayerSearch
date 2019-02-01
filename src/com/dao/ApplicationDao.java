@@ -25,6 +25,7 @@ public class ApplicationDao {
 				player.setId(set.getInt("id"));
 				player.setCountry(set.getString("country"));
 				player.setAge(set.getInt("age"));
+				player.setFullName(set.getString("fullname"));
 				players.add(player);
 			}
 		}catch(SQLException e) {
