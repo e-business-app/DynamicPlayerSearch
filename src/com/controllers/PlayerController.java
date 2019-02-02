@@ -23,9 +23,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 
 /**
- * Servlet implementation class PlayerController
- */
-// @WebServlet("/Player")
+ * AppController is the parent class. 
+ * @author  https://github.com/e-business-app
+ * @version 1.0
+ * @since   2019-01-31
+ * 
+ **/
 public class PlayerController extends AppController {
 	private static final long serialVersionUID = 1L;
        
@@ -38,6 +41,10 @@ public class PlayerController extends AppController {
     }
 
 	/**
+	 * This is the API which is called when a GET request is made to the server
+	 * with the Player Name, the search is done and a JSON response is returned back to
+	 * the client.
+	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -76,14 +83,6 @@ public class PlayerController extends AppController {
 	         e.printStackTrace();
 	      }
 	      writer.append("Error");
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }
