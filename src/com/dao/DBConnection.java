@@ -3,7 +3,7 @@ package com.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+import com.config.Constants;
 /**
 * <h1>Create a DB connection</h1>
 * This program creates a DB connection with the MySQL database.
@@ -25,7 +25,7 @@ public class DBConnection {
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);   
 			String url = "jdbc:mysql://localhost:3306/Player";
-			Connection c = DriverManager.getConnection(url,"hoshang","test");
+			Connection c = DriverManager.getConnection(url,Constants.USERNAME,Constants.PASSWORD);
 			return c;
 		}
 		catch(ClassNotFoundException e){
