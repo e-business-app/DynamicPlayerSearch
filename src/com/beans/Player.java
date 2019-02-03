@@ -84,7 +84,7 @@ public class Player {
 	 * @return rating
 	 */
 	public int getRating() {
-		return age;
+		return rating;
 	}
 	/**
 	 * Sets the rating of the player
