@@ -22,3 +22,9 @@ Type the name of the player you wish to search and there will be an AJAX GET Req
 ## Documentation of the Application
 
 https://e-business-app.github.io/DynamicPlayerSearch/
+
+
+## Dataset provided from:
+
+https://www.kaggle.com/thec03u5/fifa-18-demo-player-dataset
+
